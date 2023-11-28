@@ -1,0 +1,57 @@
+{
+  description = "Luis's NixOS Flake";
+
+  inputs = {
+    # Official NixOS package source, using nixos-unstable branch here
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Add Alejandra
+    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
+    alejandra.inputs.nixpkgs.follows = "nixpkgs";
+
+    # home-manager, used for managing user configuration
+    home-manager = {
+      url = "github:nix-community/home-manager/release-23.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # Spicetify
+    spicetify-nix = {
+      url = "github:the-argus/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = {
+    alejandra,
+    self,
+    nixpkgs,
+    spicetify-nix,
+    ...
+  } @ inputs: {
+    nixosConfigurations = {
+      # Run the following command in the flake's directory to
+      # deploy this configuration on any NixOS system:
+      #   sudo nixos-rebuild switch --flake .#thinkpad
+      "thinkpad" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        modules = [
+          ./configuration.nix
+
+          # make home-manager as a module of nixos
+          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            # TODO replace ryan with your own username
+            home-manager.users.luis = import ./home-manager/home.nix;
+
+            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+          }
+        ];
+      };
+    };
+  };
+}

@@ -1,0 +1,35 @@
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    unzip
+    zip
+    nodejs
+    nodePackages.nodemon
+    rustc
+    cargo
+    go
+    clang
+    gnumake
+    llvmPackages_9.libclang
+    sassc
+    meson
+    ninja
+    cmake
+    pkg-config
+    gobject-introspection-unwrapped
+    nmon
+    glib
+    jdk8
+    gnupatch
+    git
+    curl
+    wget
+    xdg-desktop-portal-gtk
+    libsecret
+    gawk
+    nettools
+    coreutils
+    gnome.gnome-keyring
+    nix-prefetch
+  ];
+}
