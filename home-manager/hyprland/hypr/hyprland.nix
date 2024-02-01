@@ -9,7 +9,6 @@
     jq
     xdg-desktop-portal-hyprland
     ffmpeg
-    spicetify-cli
     wl-gammactl
     wl-clipboard
     wf-recorder

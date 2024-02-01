@@ -11,6 +11,8 @@
     alejandra.url = "github:kamadorueda/alejandra/3.0.0";
     alejandra.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Budgie
+
     # Add AGS
     ags.url = "github:Aylur/ags";
 

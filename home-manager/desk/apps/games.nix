@@ -1,15 +1,14 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
-    # wineWowPackages.stable
-   # bottles
+    (wine.override {wineBuild = "wine64";})
+    pkgs.bottles-unwrapped
     winetricks
-   # lutris
+    # lutris
     appimage-run
-   # yuzu-early-access 
-   # rpcs3 
-    protontricks 
-   # heroic 
+    # yuzu-early-access
+    # rpcs3
+    protontricks
+    # heroic
     # (
     # let base = pkgs.appimageTools.defaultFhsEnvArgs;
     # in pkgs.buildFHSUserEnv (base
@@ -23,6 +22,5 @@
     # )
   ];
 
-    # programs.steam.enable = true;
-
+  # programs.steam.enable = true;
 }

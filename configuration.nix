@@ -4,6 +4,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -104,8 +105,6 @@
     };
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
-    #desktopManager.deepin.enable = true;
-    desktopManager.budgie.enable = true;
     windowManager = {
       bspwm.enable = true;
       awesome.enable = true;
@@ -118,7 +117,7 @@
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
-    drivers = [pkgs.epson_201207w pkgs.epson-201401w];
+    drivers = [pkgs.epson_201207w pkgs.epson-201401w pkgs.gutenprint];
   };
   # Enable sound with pipewire.
   sound.enable = true;
@@ -167,6 +166,10 @@
     };
   };
 
+  # environment.sessionVariables = {
+  #   NIX_GSETTINGS_OVERRIDES_DIR = lib.mkForce "${pkgs.budgie.override {gnome = null;}}/share/gsettings-schemas/${pkgs.budgie.name}/glib-2.0/schemas";
+  # };
+
   # Fonts
 
   fonts.packages = with pkgs; [
@@ -182,6 +185,7 @@
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #inputs.nix-software-center.packages.${system}.nix-software-center
     #inputs.nix-software-center.packages.${system}.nix-software-center
+    pkgs.git
 
     pkgs.alejandra
     pkgs.bun
@@ -191,6 +195,7 @@
     pkgs.yambar
     pkgs.yabar
     pkgs.wget
+    pkgs.wezterm
     pkgs.vscode
     pkgs.vscodium
     pkgs.google-chrome
@@ -232,12 +237,13 @@
     pkgs.picom
     pkgs.kitty
     pkgs.texstudio
+    pkgs.texlab
     pkgs.synapse
     pkgs.ulauncher
     pkgs.findex
     pkgs.virt-manager
     pkgs.gnome.gnome-tweaks
-    pkgs.gnome.gedit
+    pkgs.gedit
     pkgs.cinnamon.nemo-with-extensions
     pkgs.tectonic
     pkgs.lite-xl
@@ -248,6 +254,19 @@
     pkgs.gnomeExtensions.cloudflare-warp-toggle
     pkgs.gnome-extension-manager
     xorg.xbacklight
+
+    pkgs.openbox-menu
+    pkgs.obconf
+    pkgs.jgmenu
+    pkgs.fluxboxlauncher
+    pkgs.fbmenugen
+    pkgs.tint2
+    pkgs.xmenu
+    pkgs._9menu
+    pkgs.xdgmenumaker
+    pkgs.menumaker
+    pkgs.geany
+    pkgs.fwupd
   ];
 
   programs.light.enable = true;
